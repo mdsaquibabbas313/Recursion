@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+void insertStack(stack<int>& st , int temp) {
+    
+    if(st.empty() || temp > st.top()){
+        st.push(temp);
+        return ;
+    }
+    
+    // H 
+    int last = st.top();
+    st.pop();
+    
+    insertStack(st , temp);
+    
+    st.push(last);
+    return ;
+    
+}
+void sortStack(stack<int>& st) {
+    
+    // B 
+    if(st.size() == 1) {
+        return ;
+    }
+    // H
+    int last = st.top();
+    st.pop();
+    
+    sortStack(st);
+    
+    // I
+    insertStack(st , last);
+    return ;
+    
+}
+int main()
+{
+    int n;
+    
+    cin >> n;
+    
+    stack<int> st;
+    
+    for(int i = 0 ; i<n ; i++) {
+        int x;
+        cin>>x;
+        st.push(x);
+    }
+    
+    sortStack(st);
+    
+    while(!st.empty()) {
+        cout << st.top() << " ";
+        st.pop();
+    }
+
+    return 0;
+}
